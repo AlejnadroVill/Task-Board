@@ -16,16 +16,9 @@ SO THAT I can add individual project tasks, manage their state of progress, and 
 - **Day.js**: For working with dates.
 - **localStorage**: For saving and managing tasks.
 
-## Setup Instructions
+## Try my app
 
-1. Clone the starter code:
-
-   ```bash
-   git clone <https://github.com/AlejnadroVill/Task-Board>
-
-   ```
-
-2. Open index.html in a web browser.
+1. You can try the app on here: <https://alejnadrovill.github.io/Task-Board/>
 
 ## Visual reference of project
 
