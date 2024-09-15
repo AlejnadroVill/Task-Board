@@ -21,7 +21,7 @@ SO THAT I can add individual project tasks, manage their state of progress, and 
 1. Clone the starter code:
 
    ```bash
-   git clone <URL to starter code>
+   git clone <https://github.com/AlejnadroVill/Task-Board>
 
    ```
 
