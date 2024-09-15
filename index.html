@@ -1,73 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Task Board</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+  <body>
+    <header class="p-4 mb-4 text-center border-bottom border-5">
+      <h1 class="display-3">Task Board</h1>
+      <p class="lead">A simple Kanban board for task management</p>
+    </header>
+    <div class="container">
+      <div class="text-center mb-5">
+        <button
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#taskModal"
+        >
+          Add New Task
+        </button>
+      </div>
 
-  <link rel="stylesheet" href="./assets/css/style.css" />
-  <title>Task Board</title>
-</head>
-
-<body>
-  <header class="p-4 mb-4 text-center border-bottom border-5">
-    <h1 class="display-3">Task Board</h1>
-    <p class="lead">A simple Kanban board for task management</p>
-  </header>
-  <div class="container">
-    <div class="text-center mb-5">
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
-    </div>
-    <!-- Todo: Create a modal with a form to add tasks -->
-    <div class="row swim-lanes text-center justify-content-between">
-      <div class="col-12 col-lg-4 d-flex">
-        <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
-          <div class="card-header bg-white">
-            <h2 class="card-title mb-1">To Do</h2>
-          </div>
-          <div class="card-body bg-light">
-            <div id="todo-cards"></div>
+      <div
+        class="modal fade"
+        id="taskModal"
+        tabindex="-1"
+        aria-labelledby="taskModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="taskModalLabel">Create Task</h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="addTaskForm" class="p-3">
+                <div class="row">
+                  <div class="col-6">
+                    <label for="taskNameInput" class="form-label">Title</label>
+                    <input
+                      autocomplete="off"
+                      type="text"
+                      class="form-control mb-3"
+                      id="taskNameInput"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <label for="taskDueDateInput" class="form-label"
+                      >Due Date</label
+                    >
+                    <input
+                      autocomplete="off"
+                      type="text"
+                      class="form-control mb-3"
+                      id="taskDueDateInput"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <label for="taskDescInput" class="form-label"
+                      >Description</label
+                    >
+                    <textarea
+                      class="form-control mb-5"
+                      id="taskDescInput"
+                      rows="3"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#taskModal"
+                  >
+                    Save Task
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-12 col-lg-4 d-flex">
-        <div id="in-progress" class="card border-light mb-3 lane flex-grow-1">
-          <div class="card-header bg-white">
-            <h2 class="card-title mb-1">In Progress</h2>
-          </div>
-          <div class="card-body bg-light">
-            <div id="in-progress-cards"></div>
-          </div>
-        </div>
-        </div>
+
+      <div class="row swim-lanes text-center justify-content-between">
         <div class="col-12 col-lg-4 d-flex">
-          <div id="done" class="card border-light mb-3 lane flex-grow-1">
+          <div id="pending" class="card border-light mb-3 lane flex-grow-1">
             <div class="card-header bg-white">
-              <h2 class="card-title mb-1">Done</h2>
+              <h2 class="card-title mb-1">Pending</h2>
             </div>
             <div class="card-body bg-light">
-              <div id="done-cards"></div>
+              <div id="pending-tasks"></div>
+            </div>
           </div>
+        </div>
+        <div class="col-12 col-lg-4 d-flex">
+          <div id="ongoing" class="card border-light mb-3 lane flex-grow-1">
+            <div class="card-header bg-white">
+              <h2 class="card-title mb-1">Ongoing</h2>
+            </div>
+            <div class="card-body bg-light">
+              <div id="ongoing-tasks"></div>
+            </div>
           </div>
+        </div>
+        <div class="col-12 col-lg-4 d-flex">
+          <div id="completed" class="card border-light mb-3 lane flex-grow-1">
+            <div class="card-header bg-white">
+              <h2 class="card-title mb-1">Completed</h2>
+            </div>
+            <div class="card-body bg-light">
+              <div id="completed-tasks"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
-
-  <script src="./assets/js/script.js"></script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
